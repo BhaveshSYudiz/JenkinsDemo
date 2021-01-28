@@ -47,6 +47,14 @@ public class JenkinsBuild
         BuildProject(EnabledScenes, fullPathAndName, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64, BuildOptions.None);
     }
 
+    public static void BuildAndroid()
+    {
+        var args = FindArgs();
+
+        string fullPathAndName = args.targetDir + args.appName + ".apk";
+        BuildProject(EnabledScenes, fullPathAndName, BuildTargetGroup.Android, BuildTarget.Android, BuildOptions.None);
+    }
+
     private static Args FindArgs()
     {
         var returnValue = new Args();

@@ -187,6 +187,7 @@ public class JenkinsBuild
         buildOptions.target = BuildTarget.Android;
         buildOptions.targetGroup = BuildTargetGroup.Android;
         buildOptions.scenes = scenes;
+        EditorPrefs.SetString("AndroidSdkRoot", @"C:\Users\Bhavesh\AppData\Local\Android\sdk");
 
 
 

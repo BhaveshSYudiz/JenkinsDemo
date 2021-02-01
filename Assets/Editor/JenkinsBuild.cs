@@ -159,6 +159,10 @@ public class JenkinsBuild
     static void CommandLineBuildAndroid()
     {
 
+        var args = FindArgs();
+
+        string fullPathAndName = args.targetDir + args.appName + ".apk";
+
         BuildPlayerOptions buildOptions = new BuildPlayerOptions();
 
         string buildExtention = ".apk";
@@ -176,8 +180,9 @@ public class JenkinsBuild
 
         //Initialising build Options
         var buildPath = "buildAndroid/myapp_" + Application.version + PlayerSettings.Android.bundleVersionCode + buildExtention;
+        Debug.Log("new path:" + fullPathAndName);
 
-        buildOptions.locationPathName = buildPath;
+        buildOptions.locationPathName = fullPathAndName;
 
         buildOptions.target = BuildTarget.Android;
         buildOptions.targetGroup = BuildTargetGroup.Android;
@@ -194,7 +199,7 @@ public class JenkinsBuild
         //Refreshing to reload the changes
         AssetDatabase.Refresh(ImportAssetOptions.Default);
 
-        Debug.Log("BUILD PATH : " + buildPath);
+        Debug.Log("BUILD PATH : " + fullPathAndName);
         Debug.Log("Starting Android Build!");
         BuildPipeline.BuildPlayer(buildOptions); //, BuildOptions.Development);
 

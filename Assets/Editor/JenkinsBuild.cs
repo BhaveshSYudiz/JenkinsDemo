@@ -140,6 +140,66 @@ public class JenkinsBuild
         }
     }
 
+    static string[] GetBuildScenes()
+    {
+        List<string> names = new List<string>();
+
+        foreach (EditorBuildSettingsScene e in EditorBuildSettings.scenes)
+        {
+            if (e == null)
+                continue;
+
+            if (e.enabled)
+                names.Add(e.path);
+        }
+        return names.ToArray();
+    }
+
+
+    static void CommandLineBuildAndroid()
+    {
+
+        BuildPlayerOptions buildOptions = new BuildPlayerOptions();
+
+        string buildExtention = ".apk";
+        string[] scenes = GetBuildScenes();
+
+        if (scenes == null || scenes.Length == 0) // || path == null)
+            return;
+
+
+        for (int i = 0; i < scenes.Length; ++i)
+        {
+            Debug.Log(string.Format("Scene[{0}]: \"{1}\"", i, scenes[i]));
+        }
+
+
+        //Initialising build Options
+        var buildPath = "buildAndroid/myapp_" + Application.version + PlayerSettings.Android.bundleVersionCode + buildExtention;
+
+        buildOptions.locationPathName = buildPath;
+
+        buildOptions.target = BuildTarget.Android;
+        buildOptions.targetGroup = BuildTargetGroup.Android;
+        buildOptions.scenes = scenes;
+
+
+
+        //Changing the BuildTarget to Android
+        Debug.Log(string.Format("Switching Build Target to {0}", "Android"));
+
+
+        EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
+
+        //Refreshing to reload the changes
+        AssetDatabase.Refresh(ImportAssetOptions.Default);
+
+        Debug.Log("BUILD PATH : " + buildPath);
+        Debug.Log("Starting Android Build!");
+        BuildPipeline.BuildPlayer(buildOptions); //, BuildOptions.Development);
+
+    }
+
     private class Args
     {
         public string appName = "AppName";

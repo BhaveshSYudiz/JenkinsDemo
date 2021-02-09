@@ -206,6 +206,20 @@ public class JenkinsBuild
 
     }
 
+    static void PerformBuild()
+    {
+        string[] scenes = GetBuildScenes();
+
+
+        BuildPlayerOptions buildOptions = new BuildPlayerOptions();
+        buildOptions.target = BuildTarget.Android;
+        buildOptions.targetGroup = BuildTargetGroup.Android;
+        buildOptions.scenes = scenes;
+        buildOptions.locationPathName = @"D:\Jenkins\JenkinsDemo\Builds\Android\test.apk";
+
+        BuildPipeline.BuildPlayer(buildOptions);
+    }
+
     private class Args
     {
         public string appName = "AppName";

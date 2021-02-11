@@ -218,6 +218,8 @@ public class JenkinsBuild
         buildOptions.locationPathName = @"D:\Jenkins\JenkinsDemo\Builds\Android\test.apk";
 
         BuildPipeline.BuildPlayer(buildOptions);
+
+        Debug.Log("Build Completed using script");
     }
 
     private class Args
